@@ -32,7 +32,12 @@ router.post('/generate', auth, async (req, res) => {
     await invoice.save();
 
     // Generate PDF
-    const browser = await puppeteer.launch({ headless: 'new' });
+    const browser = await puppeteer.launch({ 
+      headless: 'new',
+      args: process.env.NODE_ENV === 'production' 
+        ? ['--no-sandbox', '--disable-setuid-sandbox']
+        : []
+    });
     const page = await browser.newPage();
     
     const htmlContent = generateInvoiceHTML(req.user, processedProducts, subtotal, gstAmount, totalAmount, invoice.invoiceDate);

@@ -9,7 +9,12 @@ const invoiceRoutes = require('./routes/invoice');
 const app = express();
 
 // Middleware
-app.use(cors());
+app.use(cors({
+  origin: process.env.NODE_ENV === 'production' 
+    ? ['https://invoice-frontend-bre2u1v7y-ashudeepdubey8108gmailcoms-projects.vercel.app']
+    : ['http://localhost:3000'],
+  credentials: true
+}));
 app.use(express.json());
 
 // Routes

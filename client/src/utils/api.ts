@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const api = axios.create({
   baseURL: import.meta.env.PROD 
-    ? `${import.meta.env.VITE_API_URL || 'https://invoice-server-9lnvk1470-ashudeepdubey8108gmailcoms-projects.vercel.app '}/api`
+    ? `${import.meta.env.VITE_API_URL || 'https://invoice-backend-flax.vercel.app/'}/api`
     : '/api',
 });
 

@@ -59,9 +59,7 @@ const Login: React.FC = () => {
               <h1 className="text-white text-4xl font-bold leading-tight mb-3">
                 Let the Journey Begin!
               </h1>
-              <p className="text-text-light-gray text-xl leading-7">
-                This is basic login page which is used for levitation assignment purpose.
-              </p>
+              
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">

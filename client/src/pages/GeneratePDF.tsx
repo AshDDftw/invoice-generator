@@ -105,7 +105,7 @@ const GeneratePDF: React.FC = () => {
               </div>
               <div className="text-right">
                 <h3 className="text-lg font-semibold">INVOICE GENERATOR</h3>
-                <p className="text-xs opacity-60">Sample Output should be this</p>
+ 
               </div>
             </div>
 

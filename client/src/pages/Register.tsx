@@ -34,9 +34,7 @@ const Register: React.FC = () => {
               <h1 className="text-white text-4xl font-bold leading-tight mb-3">
                 Sign up to begin journey
               </h1>
-              <p className="text-text-light-gray text-xl leading-7">
-                This is basic signup page which is used for levitation assignment purpose.
-              </p>
+            
             </div>
 
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">

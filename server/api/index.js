@@ -10,7 +10,7 @@ const app = express();
 
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? 'https://invoice-generator-neon-two.vercel.app'
+    ? 'https://invoice-generator-one-pi.vercel.app'
     : 'http://localhost:3000',
   credentials: true,
 }));

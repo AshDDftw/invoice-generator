@@ -11,7 +11,7 @@ const app = express();
 // Middleware
 app.use(cors({
   origin: process.env.NODE_ENV === 'production' 
-    ? ['https://invoice-frontend-bre2u1v7y-ashudeepdubey8108gmailcoms-projects.vercel.app']
+    ? ['https://invoice-generator-neon-two.vercel.app/']
     : ['http://localhost:3000'],
   credentials: true
 }));

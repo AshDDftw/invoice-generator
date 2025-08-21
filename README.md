@@ -155,15 +155,6 @@ invoice-generator/
 └── package.json           # Root package.json
 ```
 
-## Design Implementation
-
-The application closely follows the provided Figma design with:
-- Dark theme (#141414 background)
-- Levitation Infotech branding
-- Custom color scheme with primary green (#CCF575)
-- Responsive layout
-- Professional invoice format
-
 ## Security Features
 
 - Password hashing using bcryptjs
@@ -171,29 +162,3 @@ The application closely follows the provided Figma design with:
 - Protected API routes
 - Input validation and sanitization
 - CORS configuration
-
-## Development Notes
-
-- Frontend runs on port 3000
-- Backend runs on port 5000
-- Proxy configuration in Vite for API calls
-- Hot reload enabled for development
-- TypeScript for type safety
-- ESLint for code quality
-
-## Production Deployment
-
-1. Build the frontend: `npm run build`
-2. Set production environment variables
-3. Use a process manager like PM2 for the backend
-4. Configure reverse proxy (nginx)
-5. Use a production MongoDB instance
-6. Enable HTTPS
-
-## Troubleshooting
-
-- Ensure MongoDB is running
-- Check port availability (3000, 5000)
-- Verify environment variables
-- Check network connectivity for API calls
-- Ensure all dependencies are installed

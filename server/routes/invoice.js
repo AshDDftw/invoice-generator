@@ -1,5 +1,6 @@
 const express = require('express');
-const puppeteer = require('puppeteer');
+const chromium = require('@sparticuz/chromium');
+const puppeteer = require('puppeteer-core');
 const Invoice = require('../models/Invoice');
 const auth = require('../middleware/auth');
 
@@ -32,11 +33,15 @@ router.post('/generate', auth, async (req, res) => {
     await invoice.save();
 
     // Generate PDF
-    const browser = await puppeteer.launch({ 
-      headless: 'new',
+    const browser = await puppeteer.launch({
       args: process.env.NODE_ENV === 'production' 
-        ? ['--no-sandbox', '--disable-setuid-sandbox']
-        : []
+        ? [...chromium.args, '--hide-scrollbars', '--disable-web-security']
+        : [],
+      defaultViewport: chromium.defaultViewport,
+      executablePath: process.env.NODE_ENV === 'production'
+        ? await chromium.executablePath()
+        : undefined,
+      headless: process.env.NODE_ENV === 'production' ? chromium.headless : true,
     });
     const page = await browser.newPage();
     
@@ -56,7 +61,12 @@ router.post('/generate', auth, async (req, res) => {
     res.send(pdf);
 
   } catch (error) {
-    res.status(500).json({ message: 'Error generating PDF', error: error.message });
+    console.error('PDF Generation Error:', error);
+    res.status(500).json({ 
+      message: 'Error generating PDF', 
+      error: error.message,
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 });
 

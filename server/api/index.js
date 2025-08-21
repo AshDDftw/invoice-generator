@@ -5,6 +5,7 @@ require('dotenv').config();
 
 const authRoutes = require('../routes/auth');
 const invoiceRoutes = require('../routes/invoice');
+const testPdfRoutes = require('../routes/test-pdf');
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use(async (req, res, next) => {
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/invoice', invoiceRoutes);
+app.use('/api/test', testPdfRoutes);
 
 // Health check
 app.get('/api', (req, res) => {

@@ -47,18 +47,20 @@ router.post('/generate', auth, async (req, res) => {
     
     const htmlContent = generateInvoiceHTML(req.user, processedProducts, subtotal, gstAmount, totalAmount, invoice.invoiceDate);
     
-    await page.setContent(htmlContent);
+    await page.setContent(htmlContent, { waitUntil: 'networkidle0' });
     const pdf = await page.pdf({ 
       format: 'A4',
       printBackground: true,
-      margin: { top: '20px', bottom: '20px', left: '20px', right: '20px' }
+      margin: { top: '20px', bottom: '20px', left: '20px', right: '20px' },
+      preferCSSPageSize: false
     });
     
     await browser.close();
 
     res.setHeader('Content-Type', 'application/pdf');
     res.setHeader('Content-Disposition', `attachment; filename=invoice-${invoice._id}.pdf`);
-    res.send(pdf);
+    res.setHeader('Content-Length', pdf.length);
+    res.end(pdf, 'binary');
 
   } catch (error) {
     console.error('PDF Generation Error:', error);

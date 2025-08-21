@@ -14,16 +14,23 @@ const GeneratePDF: React.FC = () => {
   const { user } = useSelector((state: RootState) => state.auth);
 
   const generatePDFMutation = useMutation({
-    mutationFn: () => api.post('/invoice/generate', { products }, { responseType: 'blob' }),
+    mutationFn: () => api.post('/invoice/generate', { products }, { 
+      responseType: 'blob',
+      headers: {
+        'Accept': 'application/pdf'
+      }
+    }),
     onSuccess: (response) => {
-      // Create blob link to download
-      const url = window.URL.createObjectURL(new Blob([response.data]));
+      // Create blob with correct MIME type
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+      const url = window.URL.createObjectURL(blob);
       const link = document.createElement('a');
       link.href = url;
       link.setAttribute('download', `invoice-${Date.now()}.pdf`);
       document.body.appendChild(link);
       link.click();
       link.remove();
+      window.URL.revokeObjectURL(url);
       
       // Clear products and redirect
       dispatch(clearProducts());
@@ -31,6 +38,7 @@ const GeneratePDF: React.FC = () => {
       navigate('/add-products');
     },
     onError: (error: any) => {
+      console.error('PDF Error:', error);
       alert(error.response?.data?.message || 'Failed to generate PDF');
     },
   });

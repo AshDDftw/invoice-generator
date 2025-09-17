@@ -4,10 +4,17 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Provider, useDispatch } from 'react-redux';
 import { store } from './store';
 import { loadUser } from './store/authSlice';
+import Home from './pages/Home';
+import Services from './pages/Services';
+import About from './pages/About';
+import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import AddProducts from './pages/AddProducts';
 import GeneratePDF from './pages/GeneratePDF';
+import DocumentManager from './pages/DocumentManager';
+import Analytics from './pages/Analytics';
+import APIIntegration from './pages/APIIntegration';
 import ProtectedRoute from './components/ProtectedRoute';
 
 const queryClient = new QueryClient();
@@ -22,6 +29,10 @@ const AppContent: React.FC = () => {
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route
@@ -40,7 +51,30 @@ const AppContent: React.FC = () => {
             </ProtectedRoute>
           }
         />
-        <Route path="/" element={<Navigate to="/login" replace />} />
+        <Route
+          path="/documents"
+          element={
+            <ProtectedRoute>
+              <DocumentManager />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/analytics"
+          element={
+            <ProtectedRoute>
+              <Analytics />
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/api-integration"
+          element={
+            <ProtectedRoute>
+              <APIIntegration />
+            </ProtectedRoute>
+          }
+        />
       </Routes>
     </Router>
   );

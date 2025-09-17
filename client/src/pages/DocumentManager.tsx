@@ -17,7 +17,6 @@ interface Document {
 }
 
 const DocumentManager: React.FC = () => {
-  const [selectedDoc, setSelectedDoc] = useState<Document | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const queryClient = useQueryClient();
   
@@ -93,7 +92,7 @@ const DocumentManager: React.FC = () => {
             {[
               { label: 'Total Documents', value: documents.length, icon: '📄' },
               { label: 'Storage Used', value: '2.4 GB', icon: '💾' },
-              { label: 'Shared Files', value: documents.filter(d => d.isShared).length, icon: '🤝' },
+              { label: 'Shared Files', value: documents.filter((d: Document) => d.isShared).length, icon: '🤝' },
               { label: 'Recent Uploads', value: '12', icon: '📤' }
             ].map((stat, index) => (
               <div 
@@ -150,7 +149,7 @@ const DocumentManager: React.FC = () => {
                     key={doc._id}
                     className="group bg-dark-secondary rounded-xl p-6 border border-gray-700 hover:border-primary/50 transform hover:scale-105 transition-all duration-300 cursor-pointer"
                     style={{ animationDelay: `${index * 0.1}s` }}
-                    onClick={() => setSelectedDoc(doc)}
+                    onClick={() => {}}
                   >
                     <div className="flex justify-between items-start mb-4">
                       <div className="text-3xl">

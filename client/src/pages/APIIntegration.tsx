@@ -41,7 +41,7 @@ const APIIntegration: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  const { data: apiKeys = [], isLoading } = useQuery({
+  const { data: apiKeys = []} = useQuery({
     queryKey: ['api-keys'],
     queryFn: () => api.get('/integration/keys').then(res => res.data)
   });
